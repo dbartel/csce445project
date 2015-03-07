@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Agil</title>
+
+		<!-- CSS -->
+		<link href="{{ url_for('static', filename='lib/foundation/css/foundation.min.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='css/landing.css') }}" rel="stylesheet">
+<!-- 
+		<script type="text/javascript" src="{{ url_for('static', filename='lib/angular/angular.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='lib/angular/angular-ui-router.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/module.js') }}"></script>
+ -->
+
+
+		<!--  <script type="text/javascript" src="{{url_for('static', filename='js/controllers/IndexCtrl.js') }}"></script> -->
+
+	</head>
+	<body ng-cloak>	
+		<div class="content" ui-view>
+		</div>
+
+		<script type="text/javascript" src="{{ url_for('static', filename='lib/require/require.js') }}" data-main="/static/require-config"></script>
+
+	</body>
+
+</html>

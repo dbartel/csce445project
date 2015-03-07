@@ -1,0 +1,32 @@
+html,body {
+	height:100%;
+	width:100%;
+}
+
+.content {
+	height:100%;
+	width:100%;
+}
+
+.landing-page {
+	height:100%;
+	width:100%;
+	background: url(/static/img/bg.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;	
+}
+
+.home-landing {
+	background-color: rgba(0,0,0,0.2);
+	width:50%;
+	margin:0 auto;
+	text-align:center;
+	border:none;
+	float:right;
+}
+
+.home-landing p {
+	color:white;
+}
