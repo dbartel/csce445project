@@ -6,9 +6,19 @@ define([
 
 				//filler data for display purposes
 				$scope.projects = [
-					"Project 1",
-					"Project 2",
-					"Project 3"
+				{
+					name: "Project 1",
+					description: "This is the description for project 1",
+				},
+				{
+					name: "Project 2",
+					description: "This is the description for project 2"
+				},
+				{
+					name: "Project 3",
+					description: "This is the description for project 3"
+				}								
+
 				];
 				
 			}]);
