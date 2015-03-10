@@ -15,6 +15,7 @@ define([
 		"agileApp.planning",
 		"agileApp.project",
 		"agileApp.retrospective",
-		"agileApp.sprint"
+		"agileApp.sprint",
+		"mm.foundation"
 	]);
 });
