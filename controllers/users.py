@@ -1,2 +1,7 @@
+
 def get():
-	return "Users!"
+	return "Users get!"
+
+
+def post():
+	return "Users post!"
