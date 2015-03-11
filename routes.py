@@ -1,7 +1,21 @@
-from flask import Flask, render_template, request, abort
+from flask import Flask, render_template, request, abort, g
 from config import app
 from controllers import *
+import sqlite3
 
+
+# Connect db before request
+@app.before_request
+def before_request():
+	g.db = sqlite3.connect(app.config['DATABASE'])
+
+
+#Close connection after request
+@app.teardown_request
+def teardown_request(exception):
+	db = getattr(g, "db", None)
+	if db is not None:
+		db.close()
 
 def get_response(request, ctrl):
 	if request.method == "GET":
