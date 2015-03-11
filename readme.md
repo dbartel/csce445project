@@ -6,7 +6,7 @@
 
 	pip install flask
 
-- [SQLite](https://sqlite.org/)
+- [MongoDB](http://www.mongodb.org/)
 
 ## Running the Application
 
@@ -18,7 +18,7 @@
 
 ## Tools/Frameworks
 
-- **Backend Tools/Frameworks**: [Flask](http://flask.pocoo.org/), [SQLite](https://sqlite.org/)
+- **Backend Tools/Frameworks**: [Flask](http://flask.pocoo.org/), [MongoDB](http://www.mongodb.org/), [MongoEngine](http://mongoengine.org/)
 - **Frontend Tools/Frameworks**: [AngularJS](https://angularjs.org/), [Foundation](http://foundation.zurb.com/)
 - Use [Angular UI Router](http://angular-ui.github.io/ui-router/) for navigation
 - Use [GitHub OAuth](https://developer.github.com/v3/oauth/) for authentication
