@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, abort
-from agil import app
+from config import app
 from controllers import *
 
 

@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from agil import app
+from config import app
 from routes import *
 
 
