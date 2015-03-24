@@ -19,32 +19,32 @@ def get_response(request, ctrl):
 #Home page 
 @app.route("/")
 def index():
+    print 'running initial route'
     return render_template("index.html")
 
-
-@app.route('/landing', methods = ['POST'])
+#these routes never run
+@app.route('/landing', methods = ['GET', 'POST'])
 def githubLogin():
-    print 'check'
-    username = ''
-    password = ''
+    print 'running landing route'
+    username = flask.request.form['username']
+    password = flask.request.form['password']
+    
     user = Github(str(username), str(password))
-    print 'did this work'
-    pass
 
 
-@app.route('/dashboard', methods = ['POST'])
+@app.route('/dashboard', methods = ['GET', 'POST'])
 def dashboardFunc():
-    print 'check'
+    print 'running dashboard route'
     pass
 
 @app.route('/planning', methods = ['POST'])
 def planningFunc():
-	print 'check'
+	print 'running planning route'
 	pass
 
 @app.route('/project', methods = ['POST'])
 def projectFunc():
-	print 'check'
+	print 'running project route'
 	pass
 
 @app.route('/retrospective', methods = ['POST'])
