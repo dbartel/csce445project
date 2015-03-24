@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, abort
 from config import app
 from controllers import *
+from github import Github
 
 
 def get_response(request, ctrl):
@@ -18,7 +19,43 @@ def get_response(request, ctrl):
 #Home page 
 @app.route("/")
 def index():
-	return render_template("index.html")
+    return render_template("index.html")
+
+
+@app.route('/landing', methods = ['POST'])
+def githubLogin():
+    print 'check'
+    username = ''
+    password = ''
+    user = Github(str(username), str(password))
+    print 'did this work'
+    pass
+
+
+@app.route('/dashboard', methods = ['POST'])
+def dashboardFunc():
+    print 'check'
+    pass
+
+@app.route('/planning', methods = ['POST'])
+def planningFunc():
+	print 'check'
+	pass
+
+@app.route('/project', methods = ['POST'])
+def projectFunc():
+	print 'check'
+	pass
+
+@app.route('/retrospective', methods = ['POST'])
+def retrospectiveFunc():
+	print 'check'
+	pass
+
+@app.route('/sprint', methods = ['POST'])
+def sprintFunc():
+	print 'check'
+	pass
 
 
 # API Routes
