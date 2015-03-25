@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, abort, g
 from config import app
 from controllers import *
-import sqlite3
+from github import Github
 
 
 # Connect db before request
@@ -32,7 +32,43 @@ def get_response(request, ctrl):
 #Home page 
 @app.route("/")
 def index():
-	return render_template("index.html")
+    print 'running initial route'
+    return render_template("index.html")
+
+#these routes never run
+@app.route('/landing', methods = ['GET', 'POST'])
+def githubLogin():
+    print 'running landing route'
+    username = flask.request.form['username']
+    password = flask.request.form['password']
+    
+    user = Github(str(username), str(password))
+
+
+@app.route('/dashboard', methods = ['GET', 'POST'])
+def dashboardFunc():
+    print 'running dashboard route'
+    pass
+
+@app.route('/planning', methods = ['POST'])
+def planningFunc():
+	print 'running planning route'
+	pass
+
+@app.route('/project', methods = ['POST'])
+def projectFunc():
+	print 'running project route'
+	pass
+
+@app.route('/retrospective', methods = ['POST'])
+def retrospectiveFunc():
+	print 'check'
+	pass
+
+@app.route('/sprint', methods = ['POST'])
+def sprintFunc():
+	print 'check'
+	pass
 
 
 # API Routes
