@@ -33,7 +33,7 @@ def get_response(request, ctrl):
 @app.route("/")
 def index():
     print 'running initial route'
-    return render_template("index.html")
+    return render_template("landing.html")
 
 #these routes never run
 @app.route('/landing', methods = ['GET', 'POST'])
