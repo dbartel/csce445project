@@ -68,10 +68,11 @@ def dashboardFunc():
         return render_template("landing.html")
     return render_template("dashboard.html", data = json.dumps(data))
 
-@app.route('/planning', methods = ['POST'])
+@app.route('/planning', methods = ['POST', 'GET'])
 def planningFunc():
+
 	print 'running planning route'
-	pass
+	return render_template("/planning.html")
 
 @app.route('/project', methods = ['POST'])
 def projectFunc():
