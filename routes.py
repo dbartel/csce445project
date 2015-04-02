@@ -54,14 +54,14 @@ def dashboardFunc():
     print 'running dashboard route'
     username = request.form['username']
     password = request.form['password']
-    print username
-    print password
+    #print username
+#print password
     data = {}
     try:
         user = Github(str(username), str(password))
     	for repo in user.get_user().get_repos():
-            print repo.name
-            print repo.description
+            #print repo.name
+            #print repo.description
             data[repo.name] = repo.description
 
     except:

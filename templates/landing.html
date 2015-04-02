@@ -1,16 +1,22 @@
 <head>
     <title>landing</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 </head>
-<div class="landing-page">
-	<div class="panel home-landing">
-		<p>Agil</p>
-        <form action="dashboard" method="post">
-            username <input type="text" style="width:250px; margin-left:auto; margin-right:auto" name="username">
-            password <input type="password" style="width:250px; margin-left:auto; margin-right:auto" name="password">
-            <input type="submit" id="logInButton" action="dashboard" value="Log in" onclick="location.href=dashboard.html" >
-        </form>
+<div class="col-md-4"></div>
+<div class="col-md-4" >
+    <div class="text-center">
+        <p style="width:250px; margin-left:auto; margin-right:auto">Agil</p>
+    </div>
+    <form action="dashboard" method="post">
+        <input type="text" class="form-control" style="width:250px; margin-left:auto; margin-right:auto" name="username" placeholder="user name">
+        <input type="password" class="form-control" style="width:250px; margin-left:auto; margin-right:auto; margin-top:5px" name="password" placeholder="password">
+        <div class="text-center">
+            <input type="submit" class="btn" style="margin-top:10px" id="logInButton" action="dashboard" value="Log in" onclick="location.href=dashboard.html" >
+        </div>
+    </form>
         
         
 		<!--<a href class="button tiny" ng-click="logIn()">Log In</a>-->
-	</div>
 </div>
+<div class="col-md-4"></div>
