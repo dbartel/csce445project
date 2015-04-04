@@ -1,12 +1,17 @@
-<html>
-
-<head>
-    <title>dashboard</title>
-</head>
-    
-<body>
-    <div id="divTable"></div>
-    
-</body>
-
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Dashboard</title>
+    </head> 
+    <body>
+        <div class="content">
+            <a href="{{url_for('logout')}}">Click here to logout</a>
+            <h1>Projects</h1>
+            {% for project in projects %}
+                <div>
+                    {{ project.name }}
+                </div>
+            {% endfor %}
+        </div>
+    </body>
 </html>
