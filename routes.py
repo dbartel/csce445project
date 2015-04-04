@@ -4,30 +4,16 @@ from flask.ext.github import GitHub
 #import flask
 from config import app
 from controllers import *
-import sqlite3
 import json
 
-# Connect db before request
-
-#@app.before_request
-#def before_request():
-#	g.db = sqlite3.connect(app.config['DATABASE'])
-
+# Initialize flask-github
 github = GitHub(app)
 
 
 
-def get_response(request, ctrl):
-	if request.method == "GET":
-		return ctrl.get()
-	elif request.method == "POST":
-		return ctrl.post()
-	elif request.method == "PUT":
-		return ctrl.put()
-	elif request.method == "DELETE":
-		return ctrl.delete()
-	else: abort(405)
 
+###########################
+## Auth through github
 
 # Github access token getter
 @github.access_token_getter
@@ -39,52 +25,58 @@ def token_getter():
 @app.before_request
 def before_request():
     g.user = None
-    print ">>>>> checking id"
     if "user_id" in session:
-        print ">>>>> session user"
         g.user = session["user_id"]
-
-#Home page 
-@app.route("/", methods = ['GET', 'POST'])
-def index():
-    print 'running initial route'
-    return render_template("landing.html")
-
-#these routes never run
-@app.route('/landing', methods = ['GET', 'POST'])
-def landing():
-    return str(github.get("user"))
-
-
-@app.route('/dashboard', methods = ['GET', 'POST'])
-@github.authorized_handler
-def dashboardFunc(access_token):
-    if access_token is None:
-        return redirect(url_for("index"))
-    session["user_id"] = access_token
-
-    return redirect(url_for("landing"))
-
 
 @app.route("/login")
 def login():
     if session.get("user_id", None) is None:
         return github.authorize()
     else:
-        return "Already logged in!"
+        return redirect(url_for("dashboardFunc"))
+
+# Callback function after returning from github oauth
+@app.route("/gh-callback")
+@github.authorized_handler
+def authorized(access_token):
+    if access_token is None:
+        return redirect(url_for("index"))
+    session["user_id"] = access_token
+    return redirect(url_for("dashboardFunc"))
 
 
 @app.route("/logout")
 def logout():
     session.pop("user_id", None)
-    return redirect(url_for(""))
+    return redirect(url_for("index"))
+
+######################
+## Page Routes
+
+# Index
+@app.route("/", methods = ['GET', 'POST'])
+def index():
+    print 'running initial route'
+    return render_template("landing.html")
+
+
+# Dashboard 
+# List of projects, selecting a project takes you to the main application
+@app.route('/dashboard', methods = ['GET', 'POST'])
+def dashboardFunc():
+    projects = github.get("user/repos")
+    return render_template("dashboard.html", projects=projects)
 
 
 
 
+# Planning Page
+# Sprint planning is done here
 @app.route('/planning', methods = ['POST', 'GET'])
 def planningFunc():
     pass
+
+
 @app.route('/project', methods = ['POST'])
 def projectFunc():
     print 'running project route'
@@ -103,8 +95,13 @@ def sprintFunc():
 
 
 
-# API Routes
+######################
+## "API" Routes
+## We shouldn't need a backend db, but we should build up some backend routes to hit the GitHub API so our pages can asynchronously load data
 
-@app.route("/users", methods=["GET", "POST"])
-def user_response():
-	return get_response(request,users)
+# Get the list of issues for a project
+@app.route("/issues/<project>", methods=["GET"])
+def issues(project):
+    pass
+
+
