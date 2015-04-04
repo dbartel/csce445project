@@ -6,41 +6,7 @@
     
 <body>
     <div id="divTable"></div>
-    <!-- <p>{{ data|safe }}</p> -->
     
 </body>
 
 </html>
-
-<script>
-    //var repoData = JSON.parse({{ data|safe }});
-    var repoData = {{ data|safe}};
-    //console.log(repoData);
-    //console.log(repoData["skyags"]);
-    var table = document.createElement('table');
-    
-    var descriptionRow = table.insertRow(0);
-    var descriptionCol1 = descriptionRow.insertCell(0);
-    descriptionCol1.innerHTML = "Repo Name";
-    var descriptionCol2 = descriptionRow.insertCell(1);
-    descriptionCol2.innerHTML = "Repo Description";
-    
-    var counter = 1; 
-    
-    for(var repoName in repoData) {
-        var row = table.insertRow(counter);
-        var col1 = row.insertCell(0);
-        col1.innerHTML = repoName;
-        var col2 = row.insertCell(1);
-        col2.innerHTML = repoData[repoName];
-        
-        console.log(repoName);
-        console.log(repoData[repoName]);
-        
-        counter = counter + 1; 
-    }
-    
-    var attachDiv = document.getElementById('divTable');
-    attachDiv.appendChild(table);
- 
-</script>
