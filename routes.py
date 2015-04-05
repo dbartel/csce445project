@@ -10,6 +10,12 @@ import json
 github = GitHub(app)
 
 
+###########################
+## Custom Error Handers
+
+@app.errorhandler(401)
+def authorization_required(e):
+    return render_template("unauthorized.html"), 401
 
 
 ###########################
@@ -50,6 +56,13 @@ def logout():
     session.pop("user_id", None)
     return redirect(url_for("index"))
 
+
+# Aborts the request if the user isn't authorized
+def checkAuth():
+    if session.get("user_id", None) is None:
+        abort(401)
+
+
 ######################
 ## Page Routes
 
@@ -64,6 +77,7 @@ def index():
 # List of projects, selecting a project takes you to the main application
 @app.route('/dashboard', methods = ['GET', 'POST'])
 def dashboardFunc():
+    checkAuth()
     projects = github.get("user/repos")
     return render_template("dashboard.html", projects=projects)
 
