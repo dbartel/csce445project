@@ -1,0 +1,15 @@
+* {
+    font-family:helvetica, sans-serif;
+    background-color: rgb(20,162,212);
+    color:white;
+}
+
+.content {
+    width:65%;
+    margin:0 auto;
+    text-align: center;
+}
+
+a:hover {
+    opacity:0.5;
+};
