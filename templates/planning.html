@@ -5,6 +5,7 @@
 	 <base href="/planning">
 
 	<script type="text/javascript" src="{{ url_for('static', filename='lib/angular/angular.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static, filename='lib/lodash/lodash.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/controllers/planningCtrl.js') }}"></script>
 </head>
@@ -18,9 +19,6 @@
 		<div ng-repeat="issue in backlog">
 			<div>
 				<strong>{[issue.title]}</strong>
-			</div>
-			<div>
-				{[issue.body]}
 			</div>
 		</div>
 	</div>
