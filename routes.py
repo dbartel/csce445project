@@ -33,6 +33,7 @@ def before_request():
     g.user = None
     if "user_id" in session:
         g.user = session["user_id"]
+        g.username = github.get("user")["login"]
 
 @app.route("/login")
 def login():
@@ -48,6 +49,7 @@ def authorized(access_token):
     if access_token is None:
         return redirect(url_for("index"))
     session["user_id"] = access_token
+    
     return redirect(url_for("dashboardFunc"))
 
 
@@ -116,6 +118,12 @@ def sprintFunc():
 # Get the list of issues for a project
 @app.route("/issues/<project>", methods=["GET"])
 def issues(project):
-    pass
+    if project is not None:
+        api_endpoint = "repos/{0}/{1}/issues".format(g.username,project)
+        issues = github.get(api_endpoint)
+        return json.dumps(issues)
+    else:
+        # if no project specified, throw a 400 Bad Request
+        abort(400)
 
 
