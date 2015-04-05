@@ -72,9 +72,9 @@ def dashboardFunc():
 
 # Planning Page
 # Sprint planning is done here
-@app.route('/planning', methods = ['POST', 'GET'])
-def planningFunc():
-    pass
+@app.route('/planning/<project>', methods = ['POST', 'GET'])
+def planningFunc(project):
+    return render_template("planning.html", project=project)
 
 
 @app.route('/project', methods = ['POST'])
