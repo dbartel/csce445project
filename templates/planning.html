@@ -2,6 +2,8 @@
 <html ng-app="agilApp" lang="en">
 <head>
 	<title>Sprint Planning</title>
+	 <base href="/planning">
+
 	<script type="text/javascript" src="{{ url_for('static', filename='lib/angular/angular.min.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/controllers/planningCtrl.js') }}"></script>
@@ -13,7 +15,14 @@
 	</div>
 	<div class="backlog">
 		<h3>Project Backlog</h3>
-		{[ test ]}
+		<div ng-repeat="issue in backlog">
+			<div>
+				<strong>{[issue.title]}</strong>
+			</div>
+			<div>
+				{[issue.body]}
+			</div>
+		</div>
 	</div>
 </body>
 
