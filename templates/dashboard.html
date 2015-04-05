@@ -7,9 +7,13 @@
         <div class="content">
             <a href="{{url_for('logout')}}">Click here to logout</a>
             <h1>Projects</h1>
+            <!-- Project Link -->
             {% for project in projects %}
                 <div>
-                    {{ project.name }}
+                    <!-- Link to next page (planning for now) -->
+                    <a href="{{ url_for('planningFunc', project=project.name)}}">
+                        {{ project.name }}
+                    </a>
                 </div>
             {% endfor %}
         </div>
