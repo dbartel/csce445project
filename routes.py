@@ -160,6 +160,7 @@ def currentSprintFn(project):
 @app.route("/sprints/<project>", methods=["GET", "POST"])
 def sprintFn(project):
     checkAuth()
+    owner = request.args.get("owner", None)
     if request.method == "POST":
         title = request.args.get("title", None)
         due_on = request.args.get("due_on", None)
@@ -170,7 +171,7 @@ def sprintFn(project):
         else:
             # params = "title={0}".format(title,due_on)
 
-            api_endpoint = "repos/{0}/{1}/milestones".format(g.username, project)
+            api_endpoint = "repos/{0}/{1}/milestones".format(owner, project)
 
             params ={
                 "title": title,
@@ -180,6 +181,6 @@ def sprintFn(project):
             # github.raw_request("POST", api_endpoint, params)
             return "Success", 201
     else:
-        api_endpoint = "repos/{0}/{1}/milestones".format(g.username, project)
+        api_endpoint = "repos/{0}/{1}/milestones".format(owner, project)
         sprints = github.get(api_endpoint)
         return json.dumps(sprints)

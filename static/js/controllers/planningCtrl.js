@@ -12,7 +12,10 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", function($scope,
     var refreshSprint = function() {
          $http({
             method: "GET",
-            url: "/sprints/" + projectName
+            url: "/sprints/" + projectName,
+            params: {
+                "owner": projectOwner
+            }
         }).success(function(data,status,headers,config) {
             var sprints = data;
             if (sprints.length == 0) {
