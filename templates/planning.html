@@ -2,21 +2,32 @@
 <html ng-app="agilApp" lang="en">
 <head>
 	<title>Sprint Planning</title>
-	 <base href="/planning">
+	<base href="/planning">
+
 
 	<script type="text/javascript" src="{{ url_for('static', filename='lib/angular/angular.min.js') }}"></script>
-	<script type="text/javascript" src="{{ url_for('static, filename='lib/lodash/lodash.js') }}"></script>
+
+	<script type="text/javascript" src="{{ url_for('static', filename='lib/lodash/lodash.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/controllers/planningCtrl.js') }}"></script>
 </head>
 <body ng-controller="planningCtrl">
 	<h1>Planning for {{project}}</h1>
-	<div class="current-sprint">
-		<h3>Current Sprint</h3>
+	<div class="current-sprint" ng-show="activeSprintExists">
+		<h3>Current Sprint {[sprintName]}</h3>
+		<div ng-repeat="issue in currentSprint">
+			{[issue.title]}
+		</div>
+	</div>
+	<div ng-hide="activeSprintExists">
+		There is no current sprint <br>
+		<input type="date" ng-model="newSprintDate">
+		<br>
+		<a href ng-click="createNewSprint()">Click here to create a new sprint</a>
 	</div>
 	<div class="backlog">
 		<h3>Project Backlog</h3>
-		<div ng-repeat="issue in backlog">
+		<div ng-repeat="issue in backlog" ng-click="addToSprint(issue)">
 			<div>
 				<strong>{[issue.title]}</strong>
 			</div>
