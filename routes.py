@@ -87,9 +87,9 @@ def dashboardFunc():
 
 # Planning Page
 # Sprint planning is done here
-@app.route('/planning/<project>', methods = ['POST', 'GET'])
-def planningFunc(project):
-    return render_template("planning.html", project=project)
+@app.route('/planning/<owner>/<project>', methods = ['POST', 'GET'])
+def planningFunc(project, owner):
+    return render_template("planning.html", project=project, owner=owner)
 
 
 @app.route('/project', methods = ['POST'])
@@ -119,7 +119,8 @@ def sprintFunc():
 @app.route("/issues/<project>", methods=["GET"])
 def issues(project):
         sprintId = request.args.get("sprintid", "*")
-        api_endpoint = "repos/{0}/{1}/issues?milestone={2}".format(g.username, project, sprintId)
+        owner = request.args.get("owner", None)
+        api_endpoint = "repos/{0}/{1}/issues?milestone={2}".format(owner, project, sprintId)
         issues = github.get(api_endpoint)
         return json.dumps(issues)
 
@@ -128,7 +129,8 @@ def issues(project):
 @app.route("/backlog/<project>", methods=["GET", "POST"])
 def backlogFn(project):
     checkAuth()
-    api_endpoint = "repos/{0}/{1}/issues?milestone=none".format(g.username, project)
+    owner = request.args.get("owner", None)
+    api_endpoint = "repos/{0}/{1}/issues?milestone=none".format(owner, project)
     backlog = github.get(api_endpoint)
     return json.dumps(backlog)
 
@@ -138,6 +140,7 @@ def currentSprintFn(project):
     if request.method == "POST":
         sprint_id = request.args.get("sprintid", None)
         issue_id = request.args.get("issueid", None)
+        owner = request.args.get("owner", None)
         if sprint_id is None or issue_id is None:
             abort(400)
         else:
@@ -146,7 +149,7 @@ def currentSprintFn(project):
             }
 
             jparam = json.dumps(params)
-            api_endpoint = "repos/{0}/{1}/issues/{2}".format(g.username,project,issue_id)
+            api_endpoint = "repos/{0}/{1}/issues/{2}".format(owner,project,issue_id)
             github.patch(api_endpoint, data=jparam)
             return "Success", 201
     else:

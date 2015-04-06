@@ -4,7 +4,8 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", function($scope,
     $scope.activeSprintExists = true;
     $scope.currentSprintNumber = 0;
 
-    var projectName = $location.path().split("/")[2] || "";
+    var projectName = $location.path().split("/")[3] || "";
+    var projectOwner = $location.path().split("/")[2] || "";
 
     //Get the active sprint
 
@@ -26,7 +27,10 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", function($scope,
                 $http({
                     method: "GET",
                     url: "/issues/" + projectName,
-                    params: { "sprintid": $scope.currentSprintNumber}
+                    params: { 
+                        "sprintid": $scope.currentSprintNumber,
+                        "owner": projectOwner
+                }
                 }).success(function(data,status,headers,config) {
                     $scope.currentSprint = data;
                 });
@@ -39,7 +43,10 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", function($scope,
      // Get the backlog
         $http({
             method: "GET",
-            url: "/backlog/" + projectName
+            url: "/backlog/" + projectName,
+            params: {
+                owner: projectOwner
+            }
         }).success(function(data,status,headers,config) {
             $scope.backlog = data;
         });       
@@ -54,7 +61,8 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", function($scope,
             url: "/currentsprint/" + projectName,
             params: {
                 sprintid: $scope.currentSprintNumber,
-                issueid: issue.number
+                issueid: issue.number,
+                owner: projectOwner
             }
         }).success(function(data,status,headers,config) {
             refreshSprint();
