@@ -1,21 +1,33 @@
 <!DOCTYPE html>
+
 <html lang="en">
     <head>
         <title>Dashboard</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     </head> 
     <body>
-        <div class="content">
-            <a href="{{url_for('logout')}}">Click here to logout</a>
-            <h1>Projects</h1>
-            <!-- Project Link -->
-            {% for project in projects %}
-                <div>
-                    <!-- Link to next page (planning for now) -->
-                    <a href="{{ url_for('planningFunc', project=project.name, owner=project.owner.login)}}">
-                        {{ project.name }}
-                    </a>
-                </div>
+        <a href="{{url_for('logout')}}">Click here to logout</a>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="text-center">
+                
+                <h1>Projects</h1>
+                <div class="panel panel-default">
+                    <div class="panel-title" style="background-color:white">
+                        <!-- Project Link -->
+                        {% for project in projects %}
+                            <p>
+                                <!-- Link to next page (planning for now) -->
+                                <a href="{{ url_for('planningFunc', project=project.name, owner=project.owner.login)}}">
+                                    {{ project.name }}
+                                </a>
+                            </p>
             {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="col-md-4"></div>
     </body>
 </html>
