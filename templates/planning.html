@@ -3,15 +3,17 @@
 <head>
 	<title>Sprint Planning</title>
 	<base href="/planning">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> -->
 
 	<script type="text/javascript" src="{{ url_for('static', filename='lib/angular/angular.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/angular-bootstrap/ui-bootstrap-tpls-0.12.1.min.js') }}"></script>
+
 
 	<script type="text/javascript" src="{{ url_for('static', filename='lib/lodash/lodash.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/controllers/planningCtrl.js') }}"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
 </head>
 <body ng-controller="planningCtrl">
     <nav class="navbar navbar-default">
@@ -30,11 +32,43 @@
     <div class="text-center">
 	   <h1>{{project}} planning view</h1>
     </div>
-    <div class="col-md-6">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div ng-hide="activeSprintExists">
+                    <h3>No existing Sprint</h3>
+                    <input type="text" class="form-control" datepicker-popup="{[format]}" ng-model="dt" is-open="opened"  close-text="Close" />
+                </div>
+                <div class="current-sprint" ng-show="activeSprintExists">
+                    <h3>Current Sprint {[sprintName]}</h3>
+                    <accordion closeOthers="1">
+                        <accordion-group ng-repeat="issue in currentSprint" heading="{[issue.title]}">
+                            <p>{[issue.body]}</p>
+                        </accordion-group>
+                    </accordion>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="backlog">
+                    <h3>Project Backlog</h3>
+                    <accordion closeOthers="1">
+                        <accordion-group ng-repeat="issue in backlog" heading="{[issue.title]}">
+                            <p>{[issue.body]}</p>
+                            <button class="btn btn-success">Add To Sprint</button>
+                        </accordion-group>
+                    </accordion>                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!--     <div class="col-md-6">
         <div class="current-sprint" ng-show="activeSprintExists">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3>Current Sprint {[sprintName]}</h3>                                           </div>
+                    <h3>Current Sprint {[sprintName]}</h3>
+                </div>
                 <div class="panel-body">
                     <div ng-repeat="issue in currentSprint">
                         {[issue.title]}
@@ -70,7 +104,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </body>
 
 
