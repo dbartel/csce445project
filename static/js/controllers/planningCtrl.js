@@ -27,6 +27,7 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", function($scope,
                 //fetch issues for most recent sprint
                 $scope.currentSprintNumber = sprints[0].number;
                 $scope.sprintName = sprints[0].title
+                $scope.activeSprintExists = true;
                 $http({
                     method: "GET",
                     url: "/issues/" + projectName,
@@ -76,7 +77,9 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", function($scope,
     $scope.createNewSprint = function() {
         var dueDate = $scope.dt
 
-        var title = "Sprint:" + dueDate.toISOString();
+        //Title of milestone will be it's due date?
+        //Maybe we want to just iterate a number instead and use gh due date
+        var title = dueDate.toDateString();
         $http({
             method: "POST",
             url: "/sprints/" + projectName,
@@ -87,8 +90,11 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", function($scope,
             }
         })
         .success(function(data, status, headers, config) {
+            console.log("Success");
             refreshSprint();
             refreshBacklog();
+            
+
         });
     };
 
