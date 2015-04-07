@@ -87,7 +87,7 @@ def dashboardFunc():
 
 # Planning Page
 # Sprint planning is done here
-@app.route('/planning/<owner>/<project>', methods = ['POST', 'GET'])
+@app.route('/<owner>/<project>/planning', methods = ['POST', 'GET'])
 def planningFunc(project, owner):
     return render_template("planning.html", project=project, owner=owner)
 
@@ -97,13 +97,13 @@ def projectFunc():
     print 'running project route'
     pass
 
-@app.route('/retrospective', methods = ['POST'])
-def retrospectiveFunc():
+@app.route('/<owner>/<project>/retrospective', methods = ['GET'])
+def retrospectiveFunc(owner, project):
     print 'check'
     pass
 
-@app.route('/sprint', methods = ['POST'])
-def sprintFunc():
+@app.route('/<owner>/<project>/sprint', methods = ['GET'])
+def sprintFunc(owner, project):
     print 'check'
     pass
 
