@@ -1,6 +1,6 @@
 // Bootstrap angular application
 
-var app = angular.module("agilApp", [], function($locationProvider) {
+var app = angular.module("agilApp", ["ui.bootstrap"], function($locationProvider) {
     //Turn on html5mode so we can access full url
     $locationProvider.html5Mode(true);
 });
