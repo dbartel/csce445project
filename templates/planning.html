@@ -38,7 +38,7 @@
                     <accordion closeOthers="1">
                         <accordion-group ng-repeat="issue in backlog" heading="{[issue.title]}">
                             <p>{[issue.body]}</p>
-                            <button class="btn btn-success">Add To Sprint</button>
+                            <button class="btn btn-success" ng-click="addToSprint(issue)">Add To Sprint</button>
                         </accordion-group>
                     </accordion>                    
                 </div>
