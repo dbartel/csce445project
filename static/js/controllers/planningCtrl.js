@@ -4,8 +4,8 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", function($scope,
     $scope.activeSprintExists = true;
     $scope.currentSprintNumber = 0;
 
-    var projectName = $location.path().split("/")[3] || "";
-    var projectOwner = $location.path().split("/")[2] || "";
+    var projectName = $location.path().split("/")[2] || "";
+    var projectOwner = $location.path().split("/")[1]|| "";
 
     //Get the active sprint
 
