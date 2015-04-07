@@ -38,7 +38,9 @@
             <div class="col-md-6">
                 <div ng-hide="activeSprintExists">
                     <h3>No existing Sprint</h3>
-                    <input type="text" class="form-control" datepicker-popup="{[format]}" ng-model="dt" is-open="opened"  close-text="Close" />
+                    <datepicker ng-model="dt"></datepicker>
+                    <strong>Picked Date:</strong> {[dt]}
+                    <button class="btn btn-success" ng-click="createNewSprint()">Create Sprint</button>
                 </div>
                 <div class="current-sprint" ng-show="activeSprintExists">
                     <h3>Current Sprint {[sprintName]}</h3>

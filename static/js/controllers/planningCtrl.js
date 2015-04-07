@@ -74,16 +74,16 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", function($scope,
     };
 
     $scope.createNewSprint = function() {
-        var dueDate = $scope.newSprintDate.toISOString();
-        dueDate = dueDate.substr(0, dueDate.length - 5) + "Z";
+        var dueDate = $scope.dt
 
-        var title = "Sprint:" + dueDate;
+        var title = "Sprint:" + dueDate.toISOString();
         $http({
             method: "POST",
             url: "/sprints/" + projectName,
             params: {
                 title: title,
-                due_on: dueDate
+                due_on: dueDate,
+                owner: projectOwner
             }
         })
         .success(function(data, status, headers, config) {
