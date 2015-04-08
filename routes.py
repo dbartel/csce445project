@@ -78,7 +78,7 @@ def index():
 # List of projects, selecting a project takes you to the main application
 @app.route('/dashboard', methods = ['GET', 'POST'])
 def dashboardFunc():
-    checkAuth()
+    # checkAuth()
     projects = github.get("user/repos")
     return render_template("dashboard.html", projects=projects)
 

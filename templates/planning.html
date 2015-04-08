@@ -4,8 +4,12 @@
 	<title>Sprint Planning</title>
     {% include "includes/head.html" %}
 
-	<base href="/planning">
+	<base href="/">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/planning.css')}}">
+    <script type="text/javascript">
+        var projectName = "{{project | safe }}";
+        var projectOwner = "{{ owner | safe}}";
+    </script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/controllers/planningCtrl.js') }}"></script>
 
 </head>
