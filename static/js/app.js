@@ -1,8 +1,6 @@
 // Bootstrap angular application
 
-var app = angular.module("agilApp", ["ui.bootstrap"], function($locationProvider) {
-    //Turn on html5mode so we can access full url
-    $locationProvider.html5Mode(true);
+var app = angular.module("agilApp", ["ui.bootstrap"], function() {
 });
 
 //set custom angular brackets so we don't interfere with flask templating
