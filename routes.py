@@ -5,6 +5,9 @@ from flask.ext.github import GitHub
 from config import app
 import json
 
+# for sorting dictionary arrays
+from operator import itemgetter
+
 # Initialize flask-github
 github = GitHub(app)
 
@@ -177,6 +180,15 @@ def sprintFn(project):
             # github.raw_request("POST", api_endpoint, params)
             return "Success", 201
     else:
+        params = {
+            "state" : "all",
+            "sort" : "due_date",
+            "direction": "desc"
+        }
+        jparams = json.dumps(params)
         api_endpoint = "repos/{0}/{1}/milestones".format(owner, project)
-        sprints = github.get(api_endpoint)
+        sprints = github.get(api_endpoint, data=jparams)
+        #github sort not working for some reason
+        #we want the most recent sprint 
+        sprints.sort(key = itemgetter("due_on"), reverse=True)
         return json.dumps(sprints)
