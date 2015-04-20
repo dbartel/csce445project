@@ -104,11 +104,7 @@ def retrospectiveFunc(owner, project):
 
 @app.route('/<owner>/<project>/sprint', methods = ['GET'])
 def sprintFunc(owner, project):
-    print 'check'
-    pass
-
-
-
+    return render_template("sprint.html", project=project, owner=owner)
 
 ######################
 ## "API" Routes
