@@ -4,7 +4,6 @@
 	<title>Sprint Planning</title>
     {% include "includes/head.html" %}
 
-	<base href="/">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/planning.css')}}">
     <script type="text/javascript">
         var projectName = "{{project | safe }}";
@@ -41,7 +40,7 @@
                     <h3>Project Backlog</h3>
                     <accordion closeOthers="1">
                         <accordion-group ng-repeat="issue in backlog" heading="{[issue.title]}">
-                            <p>{[issue.body]}</p>
+                            <p><strong>Description:</strong>{[issue.body]}</p>
                             <button class="btn btn-success" ng-click="addToSprint(issue)">Add To Sprint</button>
                         </accordion-group>
                     </accordion>                    
