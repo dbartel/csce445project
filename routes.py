@@ -95,10 +95,9 @@ def planningFunc(project, owner):
     return render_template("planning.html", project=project, owner=owner)
 
 
-@app.route('/project', methods = ['POST'])
-def projectFunc():
-    print 'running project route'
-    pass
+@app.route('/<owner>/<project>/', methods = ['POST'])
+def projectFunc(owner, project):
+    return render_template("overview.html", project=project, owner=owner) 
 
 @app.route('/<owner>/<project>/retrospective', methods = ['GET'])
 def retrospectiveFunc(owner, project):
@@ -120,8 +119,13 @@ def issues(project):
         sprintId = request.args.get("sprintid", "*")
         owner = request.args.get("owner", None)
         api_endpoint = "repos/{0}/{1}/issues?milestone={2}".format(owner, project, sprintId)
+
         issues = github.get(api_endpoint)
-        return json.dumps(issues)
+        if len(issues) == 0:
+            status = 204
+        else:
+            status = 200
+        return json.dumps(issues), status
 
 
 # Get the backlog for a project (open issues not assigned to any sprint)
@@ -181,7 +185,7 @@ def sprintFn(project):
             return "Success", 201
     else:
         params = {
-            "state" : "all",
+            "state" : "open",
             "sort" : "due_date",
             "direction": "desc"
         }
@@ -191,4 +195,13 @@ def sprintFn(project):
         #github sort not working for some reason
         #we want the most recent sprint 
         sprints.sort(key = itemgetter("due_on"), reverse=True)
-        return json.dumps(sprints)
+        if len(sprints) > 0:
+            currentSprint = sprints[0]
+
+            #200 OK HTTP Status
+            status = 200
+        else:
+            currentSprint = None
+            #204 No Content HTTP Status
+            status = 204
+        return json.dumps(currentSprint), status
