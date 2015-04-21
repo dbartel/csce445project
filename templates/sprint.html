@@ -12,21 +12,35 @@
 	<body ng-controller="sprintCtrl">
 		{% include "includes/navbar.html" %}
 
-		<!-- Simple two column layout -->
-		<!-- Maybe switch to tabs or have some kind of collapseable sidebar? -->
- 		<div class="container-fluid">
- 			<div class="row">
- 				<div class="col-md-6">
- 					<h3>Unassigned</h3>
- 					<div ng-repeat="issue in unassignedIssues">
- 					</div>
- 				</div>
- 				<div class="col-md-6">
- 					<h3>In Progress</h3>
- 					<div ng-repeat="issue in assignedIssues">
- 					</div>
- 				</div>
- 			</div>
- 		</div>
+		<div class="container">
+			<h1>Project {{projectName}}</h1>
+			<div ng-hide="sprintActive">
+				No sprint currently active. <a href="{{url_for('planningFunc', owner=owner, project=project)}}">Click here</a> to go to the planning page to create a new sprint.
+			</div>
+
+			<div ng-show="sprintActive">
+				Current sprint end date: {[ sprint.due_on ]}
+
+				<div ng-show="noIssues">
+					No issues have been added to this sprint. <a href="{{url_for('planningFunc', owner=owner, project=project)}}">Click here</a> to go to the planning page add issues to this sprint.
+				</div>
+			<!-- Simple two column layout -->
+			<!-- Maybe switch to tabs or have some kind of collapseable sidebar? -->
+	 			<div class="row" ng-hide="noIssues">
+	 				<div class="col-md-6">
+	 					<h3>Unassigned</h3>
+	 					<div ng-repeat="issue in unassignedIssues">
+	 						{[ issue.title ]}
+	 					</div>
+	 				</div>
+	 				<div class="col-md-6">
+	 					<h3>In Progress</h3>
+	 					<div ng-repeat="issue in assignedIssues">
+	 						{[ issue.title ]} - {[ issue.assignee.login ]}
+	 					</div>
+	 				</div>
+	 			</div>				
+			</div>
+		</div>
 	</body>
 </html>
