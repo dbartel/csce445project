@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>A Look Back at Finer Times</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='lib/reveal/css/reveal.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='lib/reveal/css/theme/black.css') }}" id="theme">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='lib/css/zenburn.css') }}">
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section>
+                    <h1>Sprint #</h1>
+                    <h3>Its Date!</h3>
+                    <p>
+                        <small>Here we'll say something about this sprint...i guess.</small>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Participants</h2>
+                    <p>
+                        We can judge people by showing how many issues they had and how many of those they completed! Yay shaming!
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Issues</h2>
+                    <p>
+                        Here we will go through the issues, maybe even have a slide per issue! wow! Probably just merge with the last slide...
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Charts</h2>
+                    <p>Here we will impress people with our impressive use of charts</p>
+                </section>
+
+                <section>
+                    <h2>More Charts</h2>
+                    <p>
+                        Can't have enough charts!
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Maybe More Charts</h2>
+                    <p>
+                        Yay Charts!!!
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Final</h2>
+                    <p>
+                        Add a back button!
+                    </p>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="{{ url_for('static', filename='lib/reveal/lib/js/head.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='lib/reveal/js/reveal.js') }}"></script>
+
+        <script>
+
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                transition: 'slide' // none/fade/slide/convex/concave/zoom
+            });
+
+        </script>
+
+    </body>
+</html>
