@@ -5,10 +5,7 @@
     {% include "includes/head.html" %}
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/planning.css')}}">
-    <script type="text/javascript">
-        var projectName = "{{project | safe }}";
-        var projectOwner = "{{ owner | safe}}";
-    </script>
+
 	<script type="text/javascript" src="{{ url_for('static', filename='js/controllers/planningCtrl.js') }}"></script>
 
 </head>
@@ -48,50 +45,6 @@
             </div>
         </div>
     </div>
-
-
-<!--     <div class="col-md-6">
-        <div class="current-sprint" ng-show="activeSprintExists">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>Current Sprint {[sprintName]}</h3>
-                </div>
-                <div class="panel-body">
-                    <div ng-repeat="issue in currentSprint">
-                        {[issue.title]}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div ng-hide="activeSprintExists">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>No existing sprint</h3>
-                </div>
-                <div class="panel-body">
-                <input type="date" ng-model="newSprintDate">
-                    <br>
-                    <a href ng-click="createNewSprint()">Click here to create a new sprint</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col=md-6">
-        <div class="backlog">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>Project Backlog</h3>
-                </div>
-                <div class="panel-body">
-                    <div ng-repeat="issue in backlog" ng-click="addToSprint(issue)">
-                        <div>
-                            <strong>{[issue.title]}</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
 </body>
 
 
