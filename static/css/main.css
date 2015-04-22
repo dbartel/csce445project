@@ -1,1 +1,9 @@
 /* Main */
+
+.panel-default > .panel-heading {
+    background-color:#fff;
+}
+
+.panel {
+    border:0;
+}
