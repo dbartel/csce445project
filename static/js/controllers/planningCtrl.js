@@ -22,8 +22,8 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", function($scope,
             }
             else {
                 //fetch issues for most recent sprint
-                $scope.currentSprintNumber = sprints[0].number;
-                $scope.sprintName = sprints[0].title
+                $scope.currentSprintNumber = sprints.number;
+                $scope.sprintName = sprints.title;
                 $scope.activeSprintExists = true;
                 $http({
                     method: "GET",

@@ -22,6 +22,7 @@ app.controller("sprintCtrl", ["$scope", "$http", function($scope, $http) {
 				//Separate out assigned/unassigned issues
 				$scope.assignedIssues = _.filter($scope.issues, function(i) { return i.assignee != null});
 				$scope.unassignedIssues = _.filter($scope.issues, function(i) { return i.assignee == null});
+				$scope.myIssues = _.filter($scope.assignedIssues, function(i) {return i.assignee.login == userName});
 			}
 		});
 	}

@@ -3,10 +3,7 @@
 	<head>
 		<title>Current Sprint</title>
 		{% include "includes/head.html" %}
-		<script type="text/javascript">
-			var projectName = "{{project | safe}}";
-			var projectOwner = "{{owner | safe}}";
-		</script>
+
 		<script type="text/javascript" src="{{ url_for('static', filename='js/controllers/sprintCtrl.js') }}"></script>
 	</head>
 	<body ng-controller="sprintCtrl">
@@ -28,16 +25,31 @@
 			<!-- Maybe switch to tabs or have some kind of collapseable sidebar? -->
 	 			<div class="row" ng-hide="noIssues">
 	 				<div class="col-md-6">
-	 					<h3>Unassigned</h3>
-	 					<div ng-repeat="issue in unassignedIssues">
-	 						{[ issue.title ]}
-	 					</div>
+	 					<h3>Unassigned Issues</h3>
+	 					<accordion closeOthers="1">
+		 					<accordion-group ng-repeat="issue in unassignedIssues" heading="{[issue.title]}">
+		 						{[ issue.body ]}
+		 					</accordion-group>
+		 				</accordion>
 	 				</div>
 	 				<div class="col-md-6">
-	 					<h3>In Progress</h3>
-	 					<div ng-repeat="issue in assignedIssues">
-	 						{[ issue.title ]} - {[ issue.assignee.login ]}
-	 					</div>
+	 					<h3>Assigned Issues</h3>
+	 					<tabset>
+	 						<tab heading="Issues in progress">
+			 					<accordion closeOthers="1">
+			 						<accordion-group ng-repeat="issue in assignedIssues" heading="{[issue.title]} - {[issue.assignee.login]}">
+			 							<p>{[issue.body]}</p>
+			 						</accordion-group>
+			 					</accordion>	 							
+	 						</tab>
+	 						<tab heading="Issues Assigned to me">
+			 					<accordion closeOthers="1">
+			 						<accordion-group ng-repeat="issue in myIssues" heading="{[issue.title]}">
+			 							<p>{[issue.body]}</p>
+			 						</accordion-group>
+			 					</accordion>	 							
+	 						</tab>
+	 					</tabset>
 	 				</div>
 	 			</div>				
 			</div>
