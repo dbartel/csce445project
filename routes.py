@@ -103,6 +103,10 @@ def projectFunc(owner, project):
 def retrospectiveFunc(owner, project):
     return render_template("retrospective.html", project=project, owner=owner)
 
+@app.route('/<owner>/<project>/retrospective/retroslides', methods = ['GET'])
+def retroslidesFunc(owner, project):
+    return render_template("retroslides.html", project=project, owner=owner)
+
 @app.route('/<owner>/<project>/sprint', methods = ['GET'])
 def sprintFunc(owner, project):
     return render_template("sprint.html", project=project, owner=owner)
@@ -159,6 +163,27 @@ def currentSprintFn(project):
 
 @app.route("/restrospective/<project>", methods=["GET", "POST"])
 def restrospectiveFn(project):
+    checkAuth()
+    if request.method == "POST":
+        sprint_id = request.args.get("sprintid", None)
+        issue_id = request.args.get("issueid", None)
+        owner = request.args.get("owner", None)
+        if sprint_id is None or issue_id is None:
+            abort(400)
+        else:
+            params = {
+                "milestone":sprint_id
+            }
+
+            jparam = json.dumps(params)
+            api_endpoint = "repos/{0}/{1}/issues/{2}".format(owner,project,issue_id)
+            github.patch(api_endpoint, data=jparam)
+            return "Success", 201
+    else:
+        abort(400)
+
+@app.route("/restroslide/<project>", methods=["GET", "POST"])
+def restroslidesFn(project):
     checkAuth()
     if request.method == "POST":
         sprint_id = request.args.get("sprintid", None)
