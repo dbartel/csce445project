@@ -14,3 +14,11 @@
 <script type="text/javascript" src="{{ url_for('static', filename='lib/lodash/lodash.js') }}"></script>
 <!-- Base angular app -->
 <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+
+<!-- variables from flask -->
+<script type="text/javascript">
+    var projectName = "{{project | safe}}";
+    var projectOwner = "{{owner | safe}}";
+    var userName = "{{ g.username | safe }}"
+</script>
