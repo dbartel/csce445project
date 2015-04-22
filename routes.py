@@ -205,3 +205,32 @@ def sprintFn(project):
             #204 No Content HTTP Status
             status = 204
         return json.dumps(currentSprint), status
+
+
+@app.route("/burndown/<owner>/<project>/")
+def getBurndown(owner, project):
+    sprint_id = request.args.get("sprintid", None)
+    if sprint_id == None: abort(400)
+    api_endpoint = "repos/{0}/{1}/issues?milestone={2}&state={3}".format(owner, project, sprint_id, "all")
+
+
+    milestone_endpoint = "repos/{0}/{1}/milestones/{2}".format(owner, project, sprint_id)
+
+    issues = github.get(api_endpoint)
+    milestone_info = github.get(milestone_endpoint)
+
+    burndown_information = {
+        "issues" : issues,
+        "sprintinfo" : {
+            "open_issues": milestone_info["open_issues"],
+            "closed_issues": milestone_info["closed_issues"],
+            "start": milestone_info["created_at"],
+            "end": milestone_info["due_on"]
+        }
+    }
+
+
+    return json.dumps(burndown_information)
+
+
+
