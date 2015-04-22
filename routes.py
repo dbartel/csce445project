@@ -101,8 +101,7 @@ def projectFunc(owner, project):
 
 @app.route('/<owner>/<project>/retrospective', methods = ['GET'])
 def retrospectiveFunc(owner, project):
-    print 'check'
-    pass
+    return render_template("retrospective.html", project=project, owner=owner)
 
 @app.route('/<owner>/<project>/sprint', methods = ['GET'])
 def sprintFunc(owner, project):
@@ -139,6 +138,27 @@ def backlogFn(project):
 
 @app.route("/currentsprint/<project>", methods=["GET", "POST"])
 def currentSprintFn(project):
+    checkAuth()
+    if request.method == "POST":
+        sprint_id = request.args.get("sprintid", None)
+        issue_id = request.args.get("issueid", None)
+        owner = request.args.get("owner", None)
+        if sprint_id is None or issue_id is None:
+            abort(400)
+        else:
+            params = {
+                "milestone":sprint_id
+            }
+
+            jparam = json.dumps(params)
+            api_endpoint = "repos/{0}/{1}/issues/{2}".format(owner,project,issue_id)
+            github.patch(api_endpoint, data=jparam)
+            return "Success", 201
+    else:
+        abort(400)
+
+@app.route("/restrospective/<project>", methods=["GET", "POST"])
+def restrospectiveFn(project):
     checkAuth()
     if request.method == "POST":
         sprint_id = request.args.get("sprintid", None)
