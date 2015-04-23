@@ -103,9 +103,13 @@ def projectFunc(owner, project):
 def retrospectiveFunc(owner, project):
     return render_template("retrospective.html", project=project, owner=owner)
 
-@app.route('/<owner>/<project>/retrospective/retroslides', methods = ['GET'])
+@app.route('/<owner>/<project>/slides', methods = ['GET'])
 def retroslidesFunc(owner, project):
-    return render_template("retroslides.html", project=project, owner=owner)
+    sprint_id = request.args.get("sprintid", None)
+    if sprint_id == None: abort(400)
+    
+    retrospective_info = getRetrospectiveInfo(owner, project, sprint_id)
+    return render_template("retroslides.html", project=project, owner=owner, info=retrospective_info)
 
 @app.route('/<owner>/<project>/sprint', methods = ['GET'])
 def sprintFunc(owner, project):
@@ -182,26 +186,6 @@ def restrospectiveFn(project):
     else:
         abort(400)
 
-@app.route("/restroslide/<project>", methods=["GET", "POST"])
-def restroslidesFn(project):
-    checkAuth()
-    if request.method == "POST":
-        sprint_id = request.args.get("sprintid", None)
-        issue_id = request.args.get("issueid", None)
-        owner = request.args.get("owner", None)
-        if sprint_id is None or issue_id is None:
-            abort(400)
-        else:
-            params = {
-                "milestone":sprint_id
-            }
-
-            jparam = json.dumps(params)
-            api_endpoint = "repos/{0}/{1}/issues/{2}".format(owner,project,issue_id)
-            github.patch(api_endpoint, data=jparam)
-            return "Success", 201
-    else:
-        abort(400)
 
 #Get the list of open sprints
 #POST with the params "title" and "due_on"
@@ -259,10 +243,9 @@ def listSprints(owner, project):
 
 
 
-@app.route("/burndown/<owner>/<project>/")
-def getBurndown(owner, project):
-    sprint_id = request.args.get("sprintid", None)
-    if sprint_id == None: abort(400)
+# Wrapper fn for retrospective information
+# So we can call it when generating a reveal slideshow
+def getRetrospectiveInfo(owner, project, sprint_id):
     api_endpoint = "repos/{0}/{1}/issues?milestone={2}&state={3}".format(owner, project, sprint_id, "all")
 
 
@@ -281,9 +264,14 @@ def getBurndown(owner, project):
             "end": milestone_info["due_on"]
         }
     }
+    return burndown_information
 
 
-    return json.dumps(burndown_information)
+@app.route("/burndown/<owner>/<project>/")
+def getBurndown(owner, project):
+    sprint_id = request.args.get("sprintid", None)
+    if sprint_id == None: abort(400)
+    return json.dumps(getRetrospectiveInfo(owner, project, sprint_id))
 
 
 
