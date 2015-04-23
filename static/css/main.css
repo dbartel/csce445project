@@ -7,3 +7,30 @@
 .panel {
     border:0;
 }
+
+.click-list {
+    background-color:#fff;
+    color:#000;
+    
+    -webkit-transition: bcolor 250ms, ackground-color 250ms;
+    -moz-transition: bcolor 250ms, ackground-color 250ms;
+    -o-transition: bcolor 250ms, ackground-color 250ms;
+    -ms-transition: bcolor 250ms, ackground-color 250ms;
+    transition: color 250ms, background-color 250ms;
+
+}
+
+.click-list:hover {
+    cursor: pointer;
+    background-color:#2196F3;
+    color:#fff;
+}
+
+.chart {
+    height:500px;
+    width:1500px;
+}
+
+.ac-title {
+    font-size:2em !important;
+}
