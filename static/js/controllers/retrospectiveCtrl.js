@@ -99,6 +99,10 @@ app.controller("retrospectiveCtrl", ["$scope", "$http", function($scope, $http) 
         }).success(function(data, status, headers, config) {
             $scope.selectedSprint = data;
 
+            _.assign($scope.selectedSprint, {
+                "slideUrl": "/" + projectOwner + "/" + projectName + "/slides?sprintid=" + id
+            });
+
             $scope.chart.data = buildChartData($scope.selectedSprint);
 
             $scope.sprintSelected = true;
