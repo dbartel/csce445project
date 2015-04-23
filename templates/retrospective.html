@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="agilApp" lang="en">
+<head>
+    <title>Retrospective</title>
+    {% include "includes/head.html" %}
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/controllers/retrospectiveCtrl.js') }}"></script>
+
+</head>
+<body ng-controller="retrospectiveCtrl">
+    {% include "includes/navbar.html" %}
+
+    <div ng-hide="sprintSelected">
+        <h2>Sprints</h3>
+        <div ng-repeat="sprint in sprints" ng-click="fetchSprint(sprint.number)">
+            {[ sprint.created_at ]} - {[ sprint.due_on ]}
+        </div>
+    </div>
+
+    <div ng-show="sprintSelected">
+        <h2>Sprint {[ selectedSprint.sprintinfo.start ]} - {[ selectedSprint.sprintinfo.end ]} Report</h3>
+        <div>
+            <h3>Issues</h3>
+                <p><strong>Total Issues: </strong> {[ selectedSprint.sprintinfo.total_issues ]}</p>
+                <p><strong>Open Issues: </strong> {[ selectedSprint.sprintinfo.open_issues ]}</p>
+                <p><strong>Closed Issues: </strong> {[ selectedSprint.sprintinfo.closed_issues ]}</p>
+        </div>
+        <div>
+            <h3>Burndown</h3>
+        </div>
+
+        <button class="btn btn-primary" ng-click="goBack()">Go back</button>
+
+    </div>
+
+
+
+</body>
+</html>
