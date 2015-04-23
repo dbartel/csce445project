@@ -251,6 +251,13 @@ def sprintFn(project):
             status = 204
         return json.dumps(currentSprint), status
 
+@app.route("/listsprints/<owner>/<project>")
+def listSprints(owner, project):
+    api_endpoint = "repos/{0}/{1}/milestones".format(owner,project)
+    sprints = github.get(api_endpoint);
+    return json.dumps(sprints)
+
+
 
 @app.route("/burndown/<owner>/<project>/")
 def getBurndown(owner, project):
@@ -269,6 +276,7 @@ def getBurndown(owner, project):
         "sprintinfo" : {
             "open_issues": milestone_info["open_issues"],
             "closed_issues": milestone_info["closed_issues"],
+            "total_issues": milestone_info["open_issues"] + milestone_info["closed_issues"],
             "start": milestone_info["created_at"],
             "end": milestone_info["due_on"]
         }
