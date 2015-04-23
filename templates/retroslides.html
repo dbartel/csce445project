@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
 
-        <title>A Look Back at Finer Times</title>
+        <title>{{project}} retrospective</title>
 
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -24,53 +24,28 @@
 
             <!-- Any section element inside of this container is displayed as a slide -->
             <div class="slides">
+
+                <!-- Title Slide -->
                 <section>
-                    <h1>Sprint #</h1>
-                    <h3>Its Date!</h3>
-                    <p>
-                        <small>Here we'll say something about this sprint...i guess.</small>
-                    </p>
+                    <h1>Sprint {{ info.sprintinfo.start }} - {{ info.sprintinfo.end }}</h1> 
+                    <h2>{{ project }}</h2>
                 </section>
 
+                <!-- Issue Summary Slide -->
                 <section>
-                    <h2>Participants</h2>
-                    <p>
-                        We can judge people by showing how many issues they had and how many of those they completed! Yay shaming!
-                    </p>
+                    <h1>Issues</h1>
+                    <p>Total Issues: {{ info.sprintinfo.total_issues }}</p>
+                    <p>Completed Issues: {{ info.sprintinfo.closed_issues }} </p>
+                    <p>Incomplete Issues: {{ info.sprintinfo.open_issues }} </p>
                 </section>
 
+                <!-- Issue breakdown -->
+                {% for issue in info.issues %}
                 <section>
-                    <h2>Issues</h2>
-                    <p>
-                        Here we will go through the issues, maybe even have a slide per issue! wow! Probably just merge with the last slide...
-                    </p>
+                    <h1>{{ issue.title }}</h1>
+                    <p> {{ issue.body }} </p>
                 </section>
-
-                <section>
-                    <h2>Charts</h2>
-                    <p>Here we will impress people with our impressive use of charts</p>
-                </section>
-
-                <section>
-                    <h2>More Charts</h2>
-                    <p>
-                        Can't have enough charts!
-                    </p>
-                </section>
-
-                <section>
-                    <h2>Maybe More Charts</h2>
-                    <p>
-                        Yay Charts!!!
-                    </p>
-                </section>
-
-                <section>
-                    <h2>Final</h2>
-                    <p>
-                        Add a back button!
-                    </p>
-                </section>
+                {% endfor %}
             </div>
 
         </div>
