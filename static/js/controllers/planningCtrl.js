@@ -1,4 +1,4 @@
-app.controller("planningCtrl", ["$scope", "$http", "$location", function($scope, $http, $location) {
+app.controller("planningCtrl", ["$scope", "$http", "$location", "$modal", function($scope, $http, $location, $modal) {
 	$scope.backlog = [];
     $scope.currentSprint = [];
     $scope.activeSprintExists = true;
@@ -54,21 +54,17 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", function($scope,
     }
     refreshBacklog();
 
-
-
-    $scope.addToSprint = function(issue) {
-        $http({
-            method: "POST",
-            url: "/currentsprint/" + projectName,
-            params: {
-                sprintid: $scope.currentSprintNumber,
-                issueid: issue.number,
-                owner: projectOwner
+    $scope.openModal = function(issue, inSprint) {
+        var modalInstance = $modal.open({
+            templateUrl: "issueModal.html",
+            controller: ModalCtrl,
+            size: "lg",
+            resolve: {
+                issue: function() {return issue;},
+                sprintid: function() {return $scope.currentSprintNumber;},
+                issueInSprint: function() {return inSprint;}
             }
-        }).success(function(data,status,headers,config) {
-            refreshSprint();
-            refreshBacklog();
-        })
+        });
     };
 
     $scope.createNewSprint = function() {
@@ -94,5 +90,32 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", function($scope,
 
         });
     };
+
+
+    var ModalCtrl = function($scope, $modalInstance, $http, issue, sprintid, issueInSprint) {
+        $scope.issue = issue;
+        $scope.issueInSprint = issueInSprint;
+
+        $scope.close = function() {
+            $modalInstance.dismiss();
+        }
+
+        $scope.addToSprint = function() {
+            $http({
+                method: "POST",
+                url: "/currentsprint/" + projectName,
+                params: {
+                    sprintid: sprintid,
+                    issueid: $scope.issue.number,
+                    owner: projectOwner
+                }
+            }).success(function(data,status,headers,config) {
+                refreshSprint();
+                refreshBacklog();
+                $scope.close();
+            });
+
+        }
+    }
 
 }]);

@@ -25,27 +25,38 @@
                 </div>
                 <div class="current-sprint" ng-show="activeSprintExists">
                     <h3>Current Sprint (ends {[sprintName]})</h3>
-                    <accordion closeOthers="1">
-                        <accordion-group ng-repeat="issue in currentSprint" heading="{[issue.title]}">
-                            <p>{[issue.body]}</p>
-                        </accordion-group>
-                    </accordion>
+                    <div ng-repeat="issue in currentSprint" ng-click="openModal(issue, 1)" class="click-list">
+                        {[ issue.title ]}
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="backlog">
                     <h3>Project Backlog</h3>
-                    <accordion closeOthers="1">
-                        <accordion-group ng-repeat="issue in backlog" heading="{[issue.title]}">
-                            <p><strong>Description:</strong>{[issue.body]}</p>
-                            <button class="btn btn-success" ng-click="addToSprint(issue)">Add To Sprint</button>
-                        </accordion-group>
-                    </accordion>                    
+                    <div ng-repeat="issue in backlog" ng-click="openModal(issue, 0)" class="click-list">
+                        {[ issue.title ]}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
+
+<!-- Modal -->
+<script type="text/ng-template" id="issueModal.html" >
+    <div class="modal-header">
+        <h3 class="modal-title">{[ issue.title ]}</h3>
+    </div>
+    <div class="modal-body">
+        {[ issue.body ]}
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-hide="issueInSprint" ng-click="addToSprint()">Add To Sprint</button>
+        <button class="btn btn-warning" ng-show="issueInSprint">Remove From Sprint</button>
+        <button class="btn btn-default" ng-click="close()">Cancel</button>
+    </div>
+</script>
 
 
 </html>
