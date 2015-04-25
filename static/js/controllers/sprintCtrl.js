@@ -1,4 +1,4 @@
-app.controller("sprintCtrl", ["$scope", "$http", function($scope, $http) {
+app.controller("sprintCtrl", ["$scope", "$http", "$modal", function($scope, $http, $modal) {
 	// ...
 	$scope.sprintActive = false;
 	$scope.noIssues = true;
@@ -25,7 +25,18 @@ app.controller("sprintCtrl", ["$scope", "$http", function($scope, $http) {
 				$scope.myIssues = _.filter($scope.assignedIssues, function(i) {return i.assignee.login == userName});
 			}
 		});
-	}
+	};
+
+	$scope.openModal = function(issue) {
+		var modalInstance = $modal.open({
+            templateUrl: "issueModal.html",
+            controller: ModalCtrl,
+            size: "lg",
+            resolve: {
+                issue: function() {return issue;},
+            }
+        });
+	};
 
 
 	var getSprintInfo = function() {
@@ -47,6 +58,32 @@ app.controller("sprintCtrl", ["$scope", "$http", function($scope, $http) {
 		});
 	};
 	getSprintInfo();
+
+
+	var ModalCtrl = function($scope, $modalInstance, $http, issue) {
+		$scope.issue = issue;
+
+		$scope.close = function() {
+			$modalInstance.dismiss();
+		};
+
+		$scope.assignIssue = function(user) {
+			$http({
+				method: "POST",
+				url: "/currentsprint/" + projectName,
+				params: {
+					owner: projectOwner,
+					issueid: issue.number,
+					assignee: user,
+					sprintid: issue.milestone.number
+				}
+			}).success(function(data, status, headers, config) {
+				getSprintInfo();
+				$scope.close();
+			})
+		};
+
+	}
 
 
 }]);
