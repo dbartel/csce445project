@@ -115,7 +115,26 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", "$modal", functi
                 $scope.close();
             });
 
-        }
+        }; 
+
+        $scope.removeFromSprint = function() {
+            $http({
+                method: "POST",
+                url: "/currentsprint/" + projectName,
+                params: {
+                    sprintid: "clear",
+                    issueid:$scope.issue.number,
+                    owner: projectOwner
+
+                }
+            }).success(function(data, status, headers, config) {
+                refreshSprint();
+                refreshBacklog();
+                $scope.close();
+            });
+        };
+
+
     }
 
 }]);
