@@ -26,28 +26,23 @@
 	 			<div class="row" ng-hide="noIssues">
 	 				<div class="col-md-6">
 	 					<h3>Unassigned Issues</h3>
-	 					<accordion closeOthers="1">
-		 					<accordion-group ng-repeat="issue in unassignedIssues" heading="{[issue.title]}" class="toggle">
-		 						{[ issue.body ]}
-		 					</accordion-group>
-		 				</accordion>
+
+	 					<div ng-repeat="issue in unassignedIssues" ng-click="openModal(issue)" class="click-list">
+	 						{[ issue.title ]}
+	 					</div>
 	 				</div>
 	 				<div class="col-md-6">
 	 					<h3>Assigned Issues</h3>
 	 					<tabset>
 	 						<tab heading="Issues in progress">
-			 					<accordion closeOthers="1">
-			 						<accordion-group ng-repeat="issue in assignedIssues" heading="{[issue.title]} - {[issue.assignee.login]}">
-			 							<p>{[issue.body]}</p>
-			 						</accordion-group>
-			 					</accordion>	 							
+	 							<div ng-repeat="issue in assignedIssues" ng-click="openModal(issue)" class="click-list">
+	 								{[ issue.title ]}
+	 							</div>						
 	 						</tab>
 	 						<tab heading="Issues Assigned to me">
-			 					<accordion closeOthers="1">
-			 						<accordion-group ng-repeat="issue in myIssues" heading="{[issue.title]}">
-			 							<p>{[issue.body]}</p>
-			 						</accordion-group>
-			 					</accordion>	 							
+	 							<div ng-repeat="issue in myIssues" ng-click="openModal(issue)" class="click-list">
+	 								{[ issue.title ]}
+	 							</div> 							
 	 						</tab>
 	 					</tabset>
 	 				</div>
@@ -55,4 +50,21 @@
 			</div>
 		</div>
 	</body>
+
+<!-- Modal -->
+<script type="text/ng-template" id="issueModal.html" >
+    <div class="modal-header">
+        <h3 class="modal-title">{[ issue.title ]}</h3>
+    </div>
+    <div class="modal-body">
+    	<strong>Issue created by:</strong> {[ issue.user.login ]}
+        <p>{[ issue.body ]}</p>
+        <a href="{[ issue.html_url ]}" target="_blank">View on GitHub</a>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="assignIssue('dbartel')">Assign to me</button>
+        <button class="btn btn-default" ng-click="close()">Cancel</button>
+    </div>
+</script>
+
 </html>
