@@ -34,3 +34,7 @@
 .ac-title {
     font-size:2em !important;
 }
+
+.inline {
+    display:inline-block;
+}

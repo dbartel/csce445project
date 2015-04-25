@@ -59,11 +59,18 @@
     <div class="modal-body">
     	<strong>Issue created by:</strong> {[ issue.user.login ]}
         <p>{[ issue.body ]}</p>
-        <a href="{[ issue.html_url ]}" target="_blank">View on GitHub</a>
+        <p ng-hide="issue.assignee"><strong>Assigned to: </strong> {[ issue.assignee.user ]} </p>
+        <p><a href="{[ issue.html_url ]}" target="_blank">View on GitHub</a></p>
+
+
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" ng-click="assignIssue('dbartel')">Assign to me</button>
-        <button class="btn btn-default" ng-click="close()">Cancel</button>
+        <div class="inline" ng-hide="issue.assignee">
+            <select ng-model="assignedUser" ng-options="user for user in users">
+            </select>
+            <button class="btn btn-success" ng-click="assignIssue()">Assign Issue to {[ assignedUser ]}</button>    
+        </div>
+        <button class="btn btn-default" ng-click="close()">Close</button>
     </div>
 </script>
 
