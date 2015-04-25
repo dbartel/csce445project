@@ -151,11 +151,15 @@ def currentSprintFn(project):
         sprint_id = request.args.get("sprintid", None)
         issue_id = request.args.get("issueid", None)
         owner = request.args.get("owner", None)
-        if sprint_id is None or issue_id is None:
+        assignee = request.args.get("assignee", None)
+        if issue_id is None or (sprint_id is None and assignee is None):
             abort(400)
         else:
+            if sprint_id == "clear": sprint_id = None
+            
             params = {
-                "milestone":sprint_id
+                "milestone":sprint_id,
+                "assignee": assignee
             }
 
             jparam = json.dumps(params)
@@ -172,6 +176,7 @@ def restrospectiveFn(project):
         sprint_id = request.args.get("sprintid", None)
         issue_id = request.args.get("issueid", None)
         owner = request.args.get("owner", None)
+        assignee = request.args.get("assignee", None)
         if sprint_id is None or issue_id is None:
             abort(400)
         else:
