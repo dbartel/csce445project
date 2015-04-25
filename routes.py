@@ -86,6 +86,34 @@ def dashboardFunc():
     return render_template("dashboard.html", projects=projects)
 
 
+# Init Route
+# Sets up difficulty labels if they don't exist, then redirects to the sprint or planning page 
+@app.route("/<owner>/<project>", methods=["GET"])
+def initProject(owner, project):
+    label_endpoint = "repos/{0}/{1}/labels".format(owner, project)
+
+    labels = github.get(label_endpoint)
+
+    if not any(label["name"] == "high" for label in labels):
+        params = [
+        {
+            "name":"high",
+            "color":"FF5555"
+        },
+        {
+            "name": "medium",
+            "color": "FAFF35"
+        },
+        {
+            "name": "low",
+            "color": "4848FF"
+        }
+        ]
+
+        for param in params:
+            github.post(label_endpoint, param)
+
+    return redirect(url_for("planningFunc", project=project, owner=owner))
 
 
 # Planning Page
