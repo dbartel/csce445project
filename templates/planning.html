@@ -49,11 +49,12 @@
         <h3 class="modal-title">{[ issue.title ]}</h3>
     </div>
     <div class="modal-body">
-        {[ issue.body ]}
+        <p>{[ issue.body ]}</p>
+        <a href="{[ issue.html_url ]}" target="_blank">View on GitHub</a>
     </div>
     <div class="modal-footer">
         <button class="btn btn-success" ng-hide="issueInSprint" ng-click="addToSprint()">Add To Sprint</button>
-        <button class="btn btn-warning" ng-show="issueInSprint">Remove From Sprint</button>
+        <button class="btn btn-warning" ng-show="issueInSprint" ng-click="removeFromSprint()">Remove From Sprint</button>
         <button class="btn btn-default" ng-click="close()">Cancel</button>
     </div>
 </script>
