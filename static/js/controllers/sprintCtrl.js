@@ -62,6 +62,19 @@ app.controller("sprintCtrl", ["$scope", "$http", "$modal", function($scope, $htt
 
 	var ModalCtrl = function($scope, $modalInstance, $http, issue) {
 		$scope.issue = issue;
+		$scope.users = [];
+
+		if (!$scope.issue.assignee) {
+			$http({
+				method: "GET",
+				url: "/" + projectOwner + "/" + projectName + "/users"
+			}).success(function(data, status, headers, config) {
+				$scope.users = data;
+				$scope.assignedUser = userName;
+			});
+		}
+
+
 
 		$scope.close = function() {
 			$modalInstance.dismiss();
@@ -74,7 +87,7 @@ app.controller("sprintCtrl", ["$scope", "$http", "$modal", function($scope, $htt
 				params: {
 					owner: projectOwner,
 					issueid: issue.number,
-					assignee: user,
+					assignee: $scope.assignedUser,
 					sprintid: issue.milestone.number
 				}
 			}).success(function(data, status, headers, config) {
