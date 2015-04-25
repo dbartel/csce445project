@@ -31,7 +31,7 @@
                         {% for project in projects %}
                             <p>
                                 <!-- Link to next page (planning for now) -->
-                                <a href="{{ url_for('planningFunc', project=project.name, owner=project.owner.login)}}">
+                                <a href="{{ url_for('initProject', project=project.name, owner=project.owner.login)}}">
                                     {{ project.name }}
                                 </a>
                             </p>
