@@ -279,4 +279,10 @@ def getBurndown(owner, project):
     return json.dumps(getRetrospectiveInfo(owner, project, sprint_id))
 
 
+@app.route("/<owner>/<project>/users")
+def getUsers(owner, project):
+    api_endpoint = "repos/{0}/{1}/collaborators".format(owner, project)
+    users = github.get(api_endpoint)
+    return json.dumps(map(lambda x: x["login"], users))
+
 
