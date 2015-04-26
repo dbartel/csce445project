@@ -83,7 +83,8 @@ def index():
 def dashboardFunc():
     # checkAuth()
     projects = github.get("user/repos")
-    return render_template("dashboard.html", projects=projects)
+    login = github.get("user")["login"]
+    return render_template("dashboard.html", projects=projects, login=login)
 
 
 # Init Route
