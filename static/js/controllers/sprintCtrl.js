@@ -64,6 +64,26 @@ app.controller("sprintCtrl", ["$scope", "$http", "$modal", function($scope, $htt
 		$scope.issue = issue;
 		$scope.users = [];
 
+		$scope.difficulty = {
+			present: false,
+			name: ""
+		};
+
+		if ($scope.issue.labels != []) {
+
+			var diff = _.find($scope.issue.labels, function(l) {
+                return l.name == "high" ||
+                l.name == "medium" ||
+                l.name == "low";
+            }) || false;
+
+            if (!diff) $scope.difficulty.present = false;
+            else {
+            	$scope.difficulty.name = diff.name;
+				$scope.difficulty.present = true;
+            }
+		}
+
 		if (!$scope.issue.assignee) {
 			$http({
 				method: "GET",
@@ -96,7 +116,7 @@ app.controller("sprintCtrl", ["$scope", "$http", "$modal", function($scope, $htt
 			})
 		};
 
-	}
+	};
 
 
 }]);
