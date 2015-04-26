@@ -96,6 +96,26 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", "$modal", functi
         $scope.issue = issue;
         $scope.issueInSprint = issueInSprint;
 
+        $scope.labeled = ($scope.issue.labels != []);
+
+        $scope.difficulties = [
+            "low",
+            "medium",
+            "high"
+        ];
+
+        $scope.selectedDifficulty = $scope.difficulties[0];
+
+        if ($scope.labeled) {
+            $scope.difficulty = _.find($scope.issue.labels, function(l) {
+                return l.name == "high" ||
+                l.name == "medium" ||
+                l.name == "low";
+            });
+        }
+
+
+
         $scope.close = function() {
             $modalInstance.dismiss();
         }
@@ -133,6 +153,18 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", "$modal", functi
                 $scope.close();
             });
         };
+
+        $scope.setDifficulty = function() {
+            $http({
+                method: "PUT",
+                url: "/" + projectName + "/difficulty",
+                params: {
+                    owner: projectOwner,
+                    issueId: $scope.issue.number,
+                    difficulty: $scope.selectedDifficulty
+                }
+            });
+        }
 
 
     }
