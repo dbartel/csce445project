@@ -57,12 +57,11 @@
         <h3 class="modal-title">{[ issue.title ]}</h3>
     </div>
     <div class="modal-body">
-    	<strong>Issue created by:</strong> {[ issue.user.login ]}
+        <strong>Issue created by:</strong> {[ issue.user.login ]}
+        <p ng-show="difficulty.present"><strong>Difficulty Level:</strong> {[ difficulty.name ]}</p>
         <p>{[ issue.body ]}</p>
         <p ng-hide="issue.assignee"><strong>Assigned to: </strong> {[ issue.assignee.user ]} </p>
         <p><a href="{[ issue.html_url ]}" target="_blank">View on GitHub</a></p>
-
-
     </div>
     <div class="modal-footer">
         <div class="inline" ng-hide="issue.assignee">
