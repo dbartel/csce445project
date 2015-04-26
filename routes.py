@@ -314,3 +314,17 @@ def getUsers(owner, project):
     return json.dumps(map(lambda x: x["login"], users))
 
 
+@app.route("/<project>/difficulty", methods=["PUT"])
+def setDifficulty(project):
+    owner = request.args.get("owner", None)
+    issue = request.args.get("issueId", None)
+    label = request.args.get("difficulty", None)
+
+    if owner != None and issue != None and label != None:
+        api_endpoint = "repos/{0}/{1}/issues/{2}/labels".format(owner, project, issue)
+        data = [label]
+        jdata = json.dumps(data)
+        github.put(api_endpoint, data=jdata)
+        return "done", 200
+    else:
+        abort(400)
