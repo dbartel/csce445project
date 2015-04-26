@@ -10,8 +10,12 @@
             <li><a href="{{url_for('planningFunc', owner=owner, project=project)}}">Planning</a></li>
             <li><a href="{{url_for('sprintFunc', owner=owner, project=project)}}">Current Sprint</a></li>
             <li><a href="{{url_for('retrospectiveFunc', owner=owner, project=project)}}">Retrospective</a></li>
+            <!--
             <li><a href="{{url_for('logout')}}">Logout</a></li>
-            
+            -->
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{url_for('logout')}}">Logout</a></li>
         </ul>
     </div>
     </div>
