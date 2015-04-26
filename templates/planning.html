@@ -49,9 +49,19 @@
         <h3 class="modal-title">{[ issue.title ]}</h3>
     </div>
     <div class="modal-body">
-        <strong>Issue created by:</strong> {[ issue.user.login ]}
-        <p>{[ issue.body ]}</p>
-        <a href="{[ issue.html_url ]}" target="_blank">View on GitHub</a>
+        <div class="row">
+            <div class="col-md-6">
+                <strong>Issue created by:</strong> {[ issue.user.login ]}
+                <p ng-show="labeled"><strong>Difficulty Level:</strong> {[ difficulty.name ]}</p>
+                <select ng-model="selectedDifficulty" ng-options="diff for diff in difficulties">
+                </select>
+                <button class="btn btn-default" ng-click="setDifficulty()">Set Difficulty</button>
+             </div>
+             <div class="col-md-6">
+                <p>{[ issue.body ]}</p>
+                <a href="{[ issue.html_url ]}" target="_blank">View on GitHub</a>
+             </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-success" ng-hide="issueInSprint" ng-click="addToSprint()">Add To Sprint</button>
