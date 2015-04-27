@@ -16,7 +16,7 @@
 			</div>
 
 			<div ng-show="sprintActive">
-				Current sprint end date: {[ sprint.due_on ]}
+				Current sprint end date: {[ sprint.title ]}
 
 				<div ng-show="noIssues">
 					No issues have been added to this sprint. <a href="{{url_for('planningFunc', owner=owner, project=project)}}">Click here</a> to go to the planning page add issues to this sprint.
