@@ -37,6 +37,10 @@ app.controller("retrospectiveCtrl", ["$scope", "$http", function($scope, $http) 
         url: "/listsprints/" + projectOwner + "/" + projectName
     }).success(function(data, status, headers, config) {
         $scope.sprints = data;
+        _.forEach($scope.sprints, function(sprint) {
+            sprint.due_on = sprint.due_on.substr(0,10);
+            sprint.created_at = sprint.created_at.substr(0,10);
+        });
     });
 
     // Transform sprint information into angular-chart friendly object
