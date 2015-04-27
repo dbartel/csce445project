@@ -1,2 +1,4 @@
 Flask==0.10.1
 GitHub-Flask==2.0.1
+pytz==2015.2
+python-dateutil==2.4.2
