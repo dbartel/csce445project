@@ -290,6 +290,7 @@ def sprintFn(project):
 def listSprints(owner, project):
     api_endpoint = "repos/{0}/{1}/milestones".format(owner,project)
     sprints = github.get(api_endpoint);
+    sprints.sort(key = itemgetter("due_on"), reverse=True)
     return json.dumps(sprints)
 
 
