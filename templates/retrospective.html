@@ -14,7 +14,7 @@
             <h2>Sprints</h2>
             <p>Click on a sprint to generate a retrospective report</p>
             <div ng-repeat="sprint in sprints" ng-click="fetchSprint(sprint.number)" class="click-list scale-fade">
-                {[ sprint.created_at ]} - {[ sprint.due_on ]}
+                Sprint {[ sprint.number ]}: {[ sprint.created_at ]} - {[ sprint.due_on ]}
             </div>
         </div>
 
