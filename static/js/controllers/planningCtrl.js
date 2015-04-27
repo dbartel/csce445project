@@ -3,6 +3,8 @@ app.controller("planningCtrl", ["$scope", "$http", "$location", "$modal", functi
     $scope.currentSprint = [];
     $scope.activeSprintExists = true;
     $scope.currentSprintNumber = 0;
+	
+	$scope.createIssueLink = "https://github.com/" + projectOwner + "/" + projectName + "/issues/new";
 
     //Get the active sprint
 

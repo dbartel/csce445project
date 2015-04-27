@@ -36,6 +36,8 @@
                     <div ng-repeat="issue in backlog" ng-click="openModal(issue, 0)" class="click-list">
                         {[ issue.title ]}
                     </div>
+					<div>
+						<a target="_blank" href="{[ createIssueLink ]}">Create a new Issue (via GitHub)</a>
                 </div>
             </div>
         </div>
