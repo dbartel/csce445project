@@ -4,6 +4,9 @@ from flask.ext.github import GitHub
 #import flask
 from config import app
 import json
+import datetime
+import dateutil.parser
+import pytz
 
 # for sorting dictionary arrays
 from operator import itemgetter
@@ -220,6 +223,15 @@ def restrospectiveFn(project):
     else:
         abort(400)
 
+		
+def dateCmp(data):
+	today = datetime.datetime.now()
+	due_date = dateutil.parser.parse(data["due_on"])
+	today = today.replace(tzinfo=None)
+	due_date = due_date.replace(tzinfo=None)
+	print ">>>{0} - {1}".format(today, due_date)
+	print due_date > today
+	return due_date > today
 
 #Get the list of open sprints
 #POST with the params "title" and "due_on"
@@ -244,7 +256,7 @@ def sprintFn(project):
                 "due_on": due_on
             }
             github.post(api_endpoint, params)
-            # github.raw_request("POST", api_endpoint, params)
+            
             return "Success", 201
     else:
         params = {
@@ -255,8 +267,13 @@ def sprintFn(project):
         jparams = json.dumps(params)
         api_endpoint = "repos/{0}/{1}/milestones".format(owner, project)
         sprints = github.get(api_endpoint, data=jparams)
+
+		# filter out sprints that are late
+        sprints = [ s for s in sprints if dateCmp(s) ]
+        #sprints = filter(lambda x: dateCmp(x), sprints)
+		
         #github sort not working for some reason
-        #we want the most recent sprint 
+        #we want the most recent sprint 		
         sprints.sort(key = itemgetter("due_on"), reverse=True)
         if len(sprints) > 0:
             currentSprint = sprints[0]
