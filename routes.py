@@ -347,3 +347,14 @@ def setDifficulty(project):
         return "done", 200
     else:
         abort(400)
+
+
+@app.route("/<project>/<owner>/closeissue/<number>", methods=["POST"])
+def closeIssue(project, owner, number):
+    api_endpoint = "repos/{0}/{1}/issues/{2}".format(owner, project, number)
+    params = {
+        "state":"closed"
+    }    
+    jparams = json.dumps(params)
+    github.patch(api_endpoint, data=jparams)
+    return "ok", 200

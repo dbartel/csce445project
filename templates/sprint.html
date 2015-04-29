@@ -60,7 +60,7 @@
         <strong>Issue created by:</strong> {[ issue.user.login ]}
         <p ng-show="difficulty.present"><strong>Difficulty Level:</strong> {[ difficulty.name ]}</p>
         <p>{[ issue.body ]}</p>
-        <p ng-hide="issue.assignee"><strong>Assigned to: </strong> {[ issue.assignee.user ]} </p>
+        <p ng-show="issue.assignee"><strong>Assigned to: </strong> {[ issue.assignee.user ]} </p>
         <p><a href="{[ issue.html_url ]}" target="_blank">View on GitHub</a></p>
     </div>
     <div class="modal-footer">
@@ -69,6 +69,7 @@
             </select>
             <button class="btn btn-success" ng-click="assignIssue()">Assign Issue to {[ assignedUser ]}</button>    
         </div>
+        <button class="btn btn-success" ng-show="issue.assignee" ng-click="closeIssue()">Close Issue</button>
         <button class="btn btn-default" ng-click="close()">Close</button>
     </div>
 </script>

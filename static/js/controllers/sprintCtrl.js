@@ -94,6 +94,16 @@ app.controller("sprintCtrl", ["$scope", "$http", "$modal", function($scope, $htt
 			});
 		}
 
+		$scope.closeIssue = function() {
+			$http({
+				method: "POST",
+				url: "/" + projectName + "/" + projectOwner + "/closeissue/" + issue.number
+			}).success(function(data, status,headers,config) {
+				getSprintInfo();
+				$scope.close();
+			})
+		};
+
 
 
 		$scope.close = function() {
